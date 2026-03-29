@@ -1,7 +1,11 @@
 package com.rohan.practice1.controller;
 
+import com.rohan.practice1.dto.TaskRequestDTO;
+import com.rohan.practice1.dto.TaskResponseDTO;
 import com.rohan.practice1.entity.TaskEntity;
 import com.rohan.practice1.service.TaskService;
+import jakarta.validation.Valid;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,8 +23,9 @@ public class TaskController {
     } // constructor based dependency injection (preferred for immutability and testing)
 
         @PostMapping // to handle HTTP post requests / task creation
-        public TaskEntity createTask(@RequestBody TaskEntity task) {
-            return taskService.createTask(task);
+        public ResponseEntity<TaskResponseDTO> createTask(@Valid @RequestBody TaskRequestDTO taskRequestDTO) {
+            TaskResponseDTO response = taskService.createTask(taskRequestDTO);
+            return ResponseEntity.ok(response);
         }
 //        - Receives JSON body --> converts into a task object
 //        - Delegates creation logic to service layer
