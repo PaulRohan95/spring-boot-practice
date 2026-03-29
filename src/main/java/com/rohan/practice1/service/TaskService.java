@@ -1,5 +1,7 @@
 package com.rohan.practice1.service;
 
+import com.rohan.practice1.dto.TaskRequestDTO;
+import com.rohan.practice1.dto.TaskResponseDTO;
 import com.rohan.practice1.entity.TaskEntity;
 import org.springframework.stereotype.Service;
 import com.rohan.practice1.repository.TaskRepository;
@@ -19,14 +21,23 @@ import java.util.Optional;
 
 
 public class TaskService {
-    private final TaskRepository taskRepository; // Respository layer dependency injected by Spring
+    private final TaskRepository taskRepository; // Repository layer dependency injected by Spring
 
     public TaskService(TaskRepository taskRepository) {
         this.taskRepository = taskRepository;
     } // creating
 
-    public TaskEntity createTask(TaskEntity task) {
-        return taskRepository.save(task);
+    public TaskResponseDTO createTask(TaskRequestDTO taskRequestDTO) {
+        TaskEntity entity = new TaskEntity();
+        entity.setTitle(taskRequestDTO.getTitle());
+        entity.setDescription(taskRequestDTO.getDescription());
+
+        TaskEntity savedEntity = taskRepository.save(entity);
+        TaskResponseDTO response = new TaskResponseDTO();
+        response.setId(savedEntity.getId());
+        response.setTitle(savedEntity.getTitle());
+        response.setDescription(savedEntity.getDescription());
+        return response;
     } // Logic for creating a task, the structure of which is defined in TaskEntity (hence the dependency injection)
     // Saving the task after it has been created (handled by save())
 
