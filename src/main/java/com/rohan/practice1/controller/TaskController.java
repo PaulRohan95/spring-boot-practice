@@ -53,12 +53,12 @@ public class TaskController {
         // Updates existing tasks
         // Uses ID to locate existing tasks
         // Applies updates from request body
-        // Delegates update logoc to service layer
+        // Delegates update logic to service layer
 
 
         @DeleteMapping("/{id}") // to handle HTTP delete requests
         public void deleteTaskById(@PathVariable Long id) {
             taskService.deleteTaskById(id);
         } // finds a task by ID
-        // delgates deletion to the service layer
+        // delegates deletion to the service layer
 }
