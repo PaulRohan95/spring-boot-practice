@@ -22,5 +22,5 @@ public class GlobalExceptionHandler {
         error.setMessage("Something went wrong");
         error.setPath(request.getRequestURI());
     }
-    // to be completed - global exception handling
+    // incomplete
 }
